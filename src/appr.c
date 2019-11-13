@@ -24,7 +24,7 @@ int main(void) {
 
     int matrix[SIZE][3];        // Temporarily store data from file.
 
-    if ((fp = fopen("C:.\\data\\lab3.dat", "r")) == NULL) {
+    if ((fp = fopen("C:.\\data\\us48.dat", "r")) == NULL) {
         printf("\nCannot open file since it's null.");
         exit(EXIT_FAILURE);
     }
