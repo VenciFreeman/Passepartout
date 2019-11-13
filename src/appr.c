@@ -110,9 +110,9 @@ int PrimMST(int graph[][SIZE]) {
     }
 
     printf("\n>> The approximate optimal path is: %d ", START_CITY+1);
-    getHamilton(START_CITY, prim);    // Traverse MST to find a Hamiltonian cycle.
+    curr = getHamilton(START_CITY, prim);    // Traverse MST to find a Hamiltonian cycle.
     printf("=> %d ", START_CITY+1);
-
+    cost += graph[curr][START_CITY];
     printf("\n>> And the cost is: %d", cost);
     return 0;
 }
@@ -127,5 +127,5 @@ int getHamilton(int i,int prim[][SIZE]) {
             getHamilton(j, prim); // Recursive.
         }
     }
-    return 0;
+    return j;
 }
