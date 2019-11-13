@@ -7,12 +7,14 @@
 #define  nint(x)    (int)(x+0.5) // nint() aims to do rounding of variable x.
 #define  SIZE       48           // The number of cities.
 
+int list[49];
+int number = 0;
 int solveTSP(int matrix[][3]);
-    // This function will figure out the adjacency matrix, and use it to do the following operation.
+// This function will figure out the adjacency matrix, and use it to do the following operation.
 int PrimMST(int graph[][SIZE]);
-    // This function will generate the minimum spanning tree (aka. MST).
-int getHamilton(int i,int prim[][SIZE]);
-    // This function will traverse the MST then find a Hamiltonian cycle.
+// This function will generate the minimum spanning tree (aka. MST).
+int getHamilton(int i,int prim[][SIZE], int graph[][SIZE]);
+// This function will traverse the MST then find a Hamiltonian cycle.
 
 int main(void) {
     FILE *fp = 0;
@@ -22,7 +24,7 @@ int main(void) {
 
     int matrix[SIZE][3];        // Temporarily store data from file.
 
-    if ((fp = fopen(".\\data\\us48.dat", "r")) == NULL) {
+    if ((fp = fopen("C:.\\data\\lab3.dat", "r")) == NULL) {
         printf("\nCannot open file since it's null.");
         exit(EXIT_FAILURE);
     }
@@ -105,27 +107,29 @@ int PrimMST(int graph[][SIZE]) {
         }
         prim[curr][next] = 1;       // Store the MST as a matrix.
         prim[next][curr] = 1;
-        cost += graph[curr][next];  // Calculate new cost.
         V[curr] = 1;                // Mark current node.
     }
 
     printf("\n>> The approximate optimal path is: %d ", START_CITY+1);
-    curr = getHamilton(START_CITY, prim);    // Traverse MST to find a Hamiltonian cycle.
-    printf("=> %d ", START_CITY+1);
-    cost += graph[curr][START_CITY];
+    getHamilton(START_CITY, prim, graph);    // Traverse MST to find a Hamiltonian cycle.
+
+    for (int i=0; i<48; i++) {
+        printf("%d ",list[i]+1);
+        cost += graph[list[i]][list[i+1]];
+    }
     printf("\n>> And the cost is: %d", cost);
     return 0;
 }
 
-int getHamilton(int i,int prim[][SIZE]) {
+int getHamilton(int i,int prim[][SIZE], int graph[][SIZE]) {
     int j;
     for(j=1; j<SIZE; j++) {           // Traverse.
         if(prim[i][j] != 0) {
             prim[i][j] = 0;
             prim[j][i] = 0;
-            printf("=> %d ",j+1);
-            getHamilton(j, prim); // Recursive.
+            list[number++] = j;
+            getHamilton(j, prim, graph); // Recursive.
         }
     }
-    return j;
+    return 0;
 }
