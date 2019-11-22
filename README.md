@@ -9,12 +9,23 @@
 
 I calculated the optimal path, optimal cost and run time.
 
-- dp.c
+- DynamicProgramming_48.c
   -  Dynamic programming.
-- appr.c
+  -  Time Complexity: `O(2^n*n^2)`
+  -  Exact solution.
+- Approximation.c
   - Approximation algorithms.
-- sa.c
+  - Time Complexity: `O(n^3)`
+  - Inexact solution ( smaller than 2 * optimal cost);
+- SimulateAnneal_48.c
   -  Simulated annealing algorithm.
+  -  Exact solution if you run long enough.
+
+![](.\fig\sa1.jpg)
+
+- SimulateAnneal_358.c
+  -  Simulated annealing algorithm, too.
+  -  Exact solution if you run long enough.
 
 ### data
 
