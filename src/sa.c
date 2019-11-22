@@ -5,7 +5,7 @@
 #include <time.h>
 #define  nint(x)    (int)(x+0.5) // nint() aims to do rounding of variable x.
 #define  SIZE       48           // The number of cities.
-#define  LOOPCNT    9999999
+#define  LOOPCNT    10000
 
 int solveTSP(int matrix[][3]);
 // This function will figure out the adjacency matrix, and use it to do the following operation.
@@ -19,7 +19,7 @@ int main(void) {
 
     int matrix[SIZE][3];        // Temporarily store data from file.
 
-    if ((fp = fopen(".\\src\\usa48.dat", "r")) == NULL) {
+    if ((fp = fopen("C:\\Users\\Venci\\Desktop\\Algorithms\\lab\\lab3\\lab3.dat", "r")) == NULL) {
         printf("\nCannot open file since it's null.");
         exit(EXIT_FAILURE);
     }
@@ -78,13 +78,14 @@ int solveTSP(int matrix[][3]) {
 
 int SA(int graph[][SIZE]) {
     int k1,k2;
-    int curr_path[SIZE+1], next_path[SIZE+1];
-    int tmp, curr_cost = -1, next_cost;
+    int curr_path[SIZE+1], next_path[SIZE+1], opt_path[SIZE+1];
+    int tmp, curr_cost = -1, next_cost, opt_cost = 100000;
     double t = 100000;
-    double tf = 5;
-    int delta;
+    double tf = 1;
+    double delta;
     int cnt = 0;
-    double p;
+    double p,b;
+    double alpha = 0.99999;
 
     for (int i=0; i<SIZE; i++) {
         curr_path[i] = i;
@@ -98,8 +99,10 @@ int SA(int graph[][SIZE]) {
             for (int j=0; j<SIZE+1; j++) {
                 next_path[j] = curr_path[j];
             }
+
             k1 = rand() % 47 + 1;
             k2 = rand() % 47 + 1;
+
             tmp = next_path[k1];
             next_path[k1] = next_path[k2];
             next_path[k2] = tmp;
@@ -111,31 +114,43 @@ int SA(int graph[][SIZE]) {
                 next_cost += graph[ next_path[j] ][ next_path[j+1] ];
             }
 
-            delta = next_cost - curr_cost;
+            if (opt_cost > curr_cost) {
+                opt_cost = curr_cost;
+            }
+
+            delta = (double)(next_cost - curr_cost);
             if (delta < 0) {
                 curr_path[k1] = next_path[k1];
                 curr_path[k2] = next_path[k2];
-                t = 0.99*t;
-            }
-            else {
-                p = rand()*1.0/1000;
-                if (exp((double)(-delta) / t) > p) {
-                    printf("\n%f > %f",exp((double)(-delta) / t), p);
-                    curr_path[k1] = next_path[k1];
-                    curr_path[k2] = next_path[k2];
-                    t = 0.99*t;
-                    //printf("\n%d",delta);
+                t = alpha*t;
+                for (int j=0; j<=SIZE; j++) {
+                    opt_path[j] = curr_path[j];
                 }
             }
-            //printf("\ntest:%d", cnt);
-            //printf(" %d, %d, %d", curr_cost, next_cost, delta);
+            else {
+                p = (rand()*1.0) / RAND_MAX;
+                b = exp(-delta/t);
+                if (b > p) {
+                    curr_path[k1] = next_path[k1];
+                    curr_path[k2] = next_path[k2];
+                    t = alpha*t;
+                }
+            }
         }
-
-        if (cnt == LOOPCNT - 1)
-            break;
     }
 
-    printf("\nOptimal cost: %d", curr_cost);
+    if (opt_cost < curr_cost) {
+        curr_cost = opt_cost;
+        for (int i=0; i<=SIZE; i++) {
+            curr_path[i] = opt_path[i];
+        }
+    }
+
+    printf("\nOptimal cost: %d\n", curr_cost);
+    for (int i=0; i<SIZE; i++) {
+        printf("%d => ", curr_path[i]);
+    }
+    printf("%d", curr_path[SIZE]);
     printf("\nLoop_counter: %d", cnt);
 
     return 0;
