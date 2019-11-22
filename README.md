@@ -21,7 +21,7 @@ I calculated the optimal path, optimal cost and run time.
   -  Simulated annealing algorithm.
   -  Exact solution if you run long enough.
 
-![](.\fig\sa1.jpg)
+![](https://github.com/VenciFreeman/Passepartout/blob/master/fig/sa1.jpg)
 
 - SimulateAnneal_358.c
   -  Simulated annealing algorithm, too.
