@@ -6,7 +6,7 @@
 #define  nint(x)    (int)(x+0.5) // nint() aims to do rounding of variable x
 #define  SIZE       48           // The number of cities
 #define  IN_LOOP    10000        // The number of each in loop
-#define  ALPHA      0.999       // The cooling coefficient
+#define  ALPHA      0.999        // The cooling coefficient
 #define  TF         1            // The ideal temperature
 #define  INF        999999       // Maximum value
 
