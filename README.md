@@ -27,6 +27,8 @@ I calculated the optimal path, optimal cost and run time.
   -  Simulated annealing algorithm, too.
   -  Exact solution if you run long enough.
 
+![](https://github.com/VenciFreeman/Passepartout/blob/master/fig/sa2.jpg)
+
 ### data
 
 - att7.txt
@@ -42,4 +44,4 @@ I calculated the optimal path, optimal cost and run time.
 
 ### CMAKELists
 
-- Set a large stack space. By the way, I'm using CLion provided by JetBrains.
+- Set a large stack space. By the way, I'm using CLion provided by Jet Brains.
