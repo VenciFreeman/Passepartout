@@ -109,8 +109,8 @@ int SA(int graph[][SIZE]) {
             }
 
             while(1) {
-                k1 = rand() % 47 + 1;
-                k2 = rand() % 47 + 1;
+                k1 = rand() % (SIZE - 1) + 1;
+                k2 = rand() % (SIZE - 1) + 1;
                 if((k1-k2) <= 1+(curr_cost-10000)/200)  // When the cost is close to optimal cost, decrease the exchange amplitude.
                     break;
             }
